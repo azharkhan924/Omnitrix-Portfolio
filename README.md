@@ -6,7 +6,7 @@
 
 ## 📸 Preview
 
-![Portfolio Screenshot](./assets/screenshot.png)
+![Portfolio Screenshot](./screenshot.png)
 
 > 📌 *Replace this image with your actual screenshot (recommended: full UI view of Omnitrix screen)*
 
