@@ -329,8 +329,8 @@ html, body {
 }
 @keyframes flashAnim {
   0%   { opacity: 0; }
-  15%  { opacity: 1; }
-  70%  { opacity: 1; }
+  10%  { opacity: 1; }
+  55%  { opacity: 1; }
   100% { opacity: 0; }
 }
 .hero-time {
@@ -338,9 +338,8 @@ html, body {
   font-size: clamp(22px, 5.5vw, 60px); letter-spacing: 6px; text-align: center;
   opacity: 0; transform: scale(0.6);
 }
-#transform-overlay.go {
-  pointer-events: all;
-  animation: flashAnim 2.6s forwards;
+#transform-overlay.go .hero-time {
+  animation: heroTimeAnim 1.6s forwards;
 }
 @keyframes heroTimeAnim {
   0%   { opacity: 0; transform: scale(.6); }
@@ -944,9 +943,7 @@ html, body {
 
 </div><!-- /content-screen -->
 
-<audio id="hover-sound" src="hover.mp3" preload="auto"></audio>
-<audio id="transform-sound" src="transform.mp3" preload="auto"></audio>
-<audio id="deactivate-sound" src="deactivate.mp3" preload="auto"></audio>
+
 <!-- ═══════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════ -->
@@ -1050,8 +1047,7 @@ document.querySelectorAll('.alien-btn').forEach(btn => {
 
 /* ── TRANSFORMATION + CONTENT DISPLAY ────── */
 const overlay = document.getElementById('transform-overlay');
-const transformSound = document.getElementById("transform-sound");
-const deactivateSound = document.getElementById("deactivate-sound");
+
 const tAlienName = document.getElementById('t-alien-name');
 const selScreen = document.getElementById('sel-screen');
 const contentScreen = document.getElementById('content-screen');
@@ -1061,14 +1057,6 @@ const cBody = document.getElementById('c-body');
 
 document.querySelectorAll('.alien-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-
-    // PLAY TRANSFORMATION SOUND
-    // PLAY TRANSFORMATION SOUND (safe)
-if (transformSound) {
-  transformSound.currentTime = 0;
-  transformSound.play().catch(() => {});
-}
-
     const section = btn.dataset.section;
     const alien = btn.dataset.alien;
     const title = btn.dataset.title;
@@ -1093,50 +1081,35 @@ if (transformSound) {
       cBody.innerHTML = buildContent(section);
       contentScreen.classList.remove('hidden');
       contentScreen.scrollTop = 0;
-
       // animate skill bars
       setTimeout(animateBars, 150);
-
     }, 900);
 
     // Remove overlay class so it can retrigger
     setTimeout(() => {
       overlay.classList.remove('go');
     }, 1700);
-
   });
 });
+
 /* ── DEACTIVATE ───────────────────────────── */
 function deactivate() {
-
-  // PLAY DEACTIVATE SOUND
-  // PLAY DEACTIVATE SOUND (safe)
-if (deactivateSound) {
-  deactivateSound.currentTime = 0;
-  deactivateSound.play().catch(() => {});
-}
   // Red flash
   overlay.style.background = '#ff2222';
-
   setTimeout(() => {
     overlay.style.background = 'var(--g)';
   }, 800);
-
   tAlienName.textContent = '— DEACTIVATING —';
   document.querySelector('.hero-time').textContent = 'DEACTIVATED';
-
   overlay.classList.add('go');
-
   setTimeout(() => {
     contentScreen.classList.add('hidden');
     selScreen.classList.remove('hidden');
     document.querySelector('.hero-time').textContent = "IT'S HERO TIME!";
-  }, 1600);
-
-  setTimeout(() => {
-    overlay.classList.remove('go');
-  }, 2500);
+  }, 900);
+  setTimeout(() => { overlay.classList.remove('go'); }, 1700);
 }
+
 /* ── ANIMATE SKILL BARS ───────────────────── */
 function animateBars() {
   document.querySelectorAll('.skill-fill[data-w]').forEach(el => {
@@ -1160,16 +1133,14 @@ function about() {
       <div class="bio-hex">🔥</div>
       <div>
         <div class="bio-name">AZHAR KHAN</div>
-        <div class="bio-role">Java Developer · CSE Student · Competitive Programmer</div>
+        <div class="bio-role">Backend Developer · Java · Spring Boot</div>
         <p class="bio-p">
-          Aspiring <strong>Java Backend Developer</strong> with a deep passion for algorithmic problem
-          solving and building scalable software. Currently in 3rd Year, B.Tech Computer Science Engineering
-          at Acropolis Institute of Technology and Research, Indore.
+          Backend Developer with hands-on experience building <strong>Spring Boot REST APIs</strong>,
+          <strong>JWT-secured systems</strong>, and <strong>MySQL-backed applications</strong>.
         </p>
         <p class="bio-p">
-          Experienced in building full-stack Java web apps using <strong>JSP, Servlets, JDBC &amp; Apache Tomcat</strong>,
-          and desktop GUI applications with <strong>Swing &amp; AWT</strong>. Solid foundation in
-          <strong>Data Structures, Algorithms, OOP, DBMS,</strong> and Software Engineering.
+          Developed real-world systems including a <strong>blockchain document verification platform</strong>
+          and an <strong>AI-powered mental health support system</strong> handling real-time interactions.
         </p>
       </div>
     </div>
@@ -1177,36 +1148,35 @@ function about() {
 
   <div class="sec-label">Personal Information</div>
   <ul class="ilist hcard" style="padding: 16px 24px;">
-    <li class="iitem">📍 &nbsp;Indore, Madhya Pradesh, India</li>
-    <li class="iitem">🎓 &nbsp;B.Tech CSE — 3rd Year, 5th Semester</li>
-    <li class="iitem">🏛️ &nbsp;Acropolis Institute of Technology &amp; Research</li>
-    <li class="iitem">📧 &nbsp;<a href="mailto:azharkhan230826@acropolis.in">azharkhan230826@acropolis.in</a></li>
-    <li class="iitem">📞 &nbsp;+91 7067289757</li>
+    <li class="iitem">📍 Indore, Madhya Pradesh, India</li>
+    <li class="iitem">🎓 B.Tech CSE (2023–2027)</li>
+    <li class="iitem">🏛️ Acropolis Institute of Technology & Research</li>
+    <li class="iitem">📧 azharkhan.ak2303@gmail.com</li>
+    <li class="iitem">📞 +91 7067289757</li>
   </ul>
 
-  <div class="sec-label">NPTEL Certifications</div>
+  <div class="sec-label">Achievements</div>
   <div class="g2">
     <div class="cert-badge">
-      <span class="cert-score">85%</span>
-      <span class="cert-label">Programming in Java<br/>NPTEL Certified</span>
+      <span class="cert-score">250+</span>
+      <span class="cert-label">LeetCode Problems Solved</span>
     </div>
     <div class="cert-badge">
-      <span class="cert-score">Top 5%</span>
-      <span class="cert-label">Python for Data Science<br/>NPTEL Certified</span>
+      <span class="cert-score">85%</span>
+      <span class="cert-label">Programming in Java (NPTEL)</span>
     </div>
   </div>
 
   <div class="sec-label">Career Objective</div>
   <div class="hcard">
     <p class="bio-p">
-      Short-term goal: Become a strong <strong>Java Backend Developer</strong>, mastering advanced DSA
-      and system design. Long-term: Secure a <strong>Software Engineer</strong> role at a product-based
-      company and build impactful systems at scale.
+      Seeking an <strong>Java Backend Developer / Internship</strong> role to build scalable,
+      secure backend systems and contribute to impactful real-world applications.
     </p>
     <div class="tags">
-      <span class="tag">Java Developer</span>
+      <span class="tag">Spring Boot</span>
+      <span class="tag">REST APIs</span>
       <span class="tag">Backend Dev</span>
-      <span class="tag">Software Engineer</span>
       <span class="tag">Problem Solver</span>
     </div>
   </div>
@@ -1216,96 +1186,35 @@ function about() {
 /* ── SKILLS ──────────────────────────────── */
 function skills() {
   return `
+  <div class="sec-label">Backend & Frameworks</div>
+  <div class="hcard">
+    ${bar('Spring Boot', 85)}
+    ${bar('REST APIs', 88)}
+    ${bar('JSP / Servlets', 82)}
+    ${bar('JDBC', 80)}
+  </div>
+
   <div class="sec-label">Programming Languages</div>
   <div class="hcard">
     ${bar('Java', 92)}
     ${bar('C / C++', 78)}
     ${bar('Python', 70)}
-    ${bar('JavaScript', 58)}
   </div>
 
   <div class="sec-label">Core CS Fundamentals</div>
   <div class="hcard">
     ${bar('Data Structures & Algorithms', 88)}
-    ${bar('Object Oriented Programming', 91)}
-    ${bar('DBMS / SQL', 72)}
-    ${bar('Software Engineering', 70)}
+    ${bar('OOP', 90)}
+    ${bar('Multithreading', 75)}
   </div>
 
-  <div class="sec-label">Java Technologies</div>
+  <div class="sec-label">Database & Tools</div>
   <div class="tags">
-    <span class="tag java">Core Java</span>
-    <span class="tag java">Advanced Java</span>
-    <span class="tag java">JDBC</span>
-    <span class="tag java">JSP</span>
-    <span class="tag java">Servlets</span>
-    <span class="tag java">Multithreading</span>
-    <span class="tag java">Collections</span>
-    <span class="tag java">Swing / AWT</span>
-    <span class="tag java">Apache Tomcat</span>
-    <span class="tag">HTML / CSS</span>
     <span class="tag">MySQL</span>
+    <span class="tag">JPA / Hibernate</span>
     <span class="tag">Git</span>
-    <span class="tag">IntelliJ / Eclipse</span>
-  </div>
-
-  <div class="sec-label">DSA Knowledge Map</div>
-  <div class="g2">
-    <div class="dsa-card">
-      <div class="dsa-title">Data Structures</div>
-      <ul class="dsa-list">
-        <li>Arrays &amp; Strings</li>
-        <li>Linked Lists</li>
-        <li>Stacks &amp; Queues</li>
-        <li>Trees &amp; BST</li>
-        <li>AVL / 2-3 / B-Trees</li>
-        <li>Graphs</li>
-      </ul>
-    </div>
-    <div class="dsa-card">
-      <div class="dsa-title">Algorithms</div>
-      <ul class="dsa-list">
-        <li>BFS &amp; DFS</li>
-        <li>Binary Search</li>
-        <li>10+ Sorting Algos</li>
-        <li>Dynamic Programming</li>
-        <li>Greedy</li>
-        <li>NP-Completeness</li>
-      </ul>
-    </div>
-    <div class="dsa-card">
-      <div class="dsa-title">Sorting Mastery</div>
-      <ul class="dsa-list">
-        <li>Bubble / Selection</li>
-        <li>Insertion / Shell</li>
-        <li>Merge / Quick</li>
-        <li>Heap Sort</li>
-        <li>Counting / Radix</li>
-        <li>Bucket Sort</li>
-      </ul>
-    </div>
-    <div class="dsa-card">
-      <div class="dsa-title">Java Deep Knowledge</div>
-      <ul class="dsa-list">
-        <li>Object class (12 methods)</li>
-        <li>Servlet life cycle</li>
-        <li>HTTP Req/Res handling</li>
-        <li>doGet() / doPost()</li>
-        <li>Thread management</li>
-        <li>Collection framework</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="sec-label">Tools & Platforms</div>
-  <div class="tags">
-    <span class="tag">Apache Tomcat</span>
-    <span class="tag">MySQL Workbench</span>
-    <span class="tag">LeetCode</span>
-    <span class="tag">Git (Basic)</span>
-    <span class="tag">IntelliJ IDEA</span>
+    <span class="tag">Postman</span>
     <span class="tag">Eclipse</span>
-    <span class="tag">VS Code</span>
   </div>
   `;
 }
@@ -1324,172 +1233,94 @@ function projects() {
   <div class="sec-label">Featured Projects</div>
 
   <div class="gauto">
+
     <div class="proj-card">
       <div class="proj-num">01</div>
-      <div class="proj-icon">🎓</div>
-      <div class="proj-title">Student Management System</div>
+      <div class="proj-icon">🔗</div>
+      <div class="proj-title">KMS Chain – Blockchain Document Verification</div>
       <p class="proj-desc">
-        A full-stack web-based student management platform built with Java EE.
-        Complete CRUD operations with a dynamic web interface and MySQL backend.
+        Blockchain-based system ensuring tamper-proof verification of 500+ documents.
       </p>
       <ul class="proj-features">
-        <li>Full CRUD for student records</li>
-        <li>MySQL database via JDBC</li>
-        <li>Dynamic JSP-rendered pages</li>
-        <li>Servlet-based MVC architecture</li>
-        <li>Deployed on Apache Tomcat</li>
+        <li>Implemented SHA-256 hashing for document integrity</li>
+        <li>Built 6+ REST APIs for verification & tracking</li>
+        <li>Designed MySQL schema using JPA</li>
+        <li>Ensured secure and transparent validation</li>
       </ul>
       <div class="tags">
-        <span class="tag">Java</span><span class="tag">JSP</span>
-        <span class="tag">Servlets</span><span class="tag">JDBC</span>
-        <span class="tag">MySQL</span><span class="tag">Tomcat</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">Java</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">REST API</span>
       </div>
     </div>
 
     <div class="proj-card">
       <div class="proj-num">02</div>
-      <div class="proj-icon">🖥️</div>
-      <div class="proj-title">Java Desktop GUI Apps</div>
+      <div class="proj-icon">🧠</div>
+      <div class="proj-title">MindBridge – AI Mental Health Platform</div>
       <p class="proj-desc">
-        Multiple desktop GUI applications built using Java's Swing and AWT frameworks,
-        showcasing deep knowledge of Java's graphical UI capabilities.
+        AI-powered system supporting 50+ users with real-time monitoring.
       </p>
       <ul class="proj-features">
-        <li>Rich graphical user interfaces</li>
-        <li>Event-driven programming model</li>
-        <li>Custom components &amp; layouts</li>
-        <li>OOP-based architecture</li>
-        <li>Graphics programming in C/C++</li>
+        <li>Implemented JWT-based authentication</li>
+        <li>Integrated AI chatbot (Llama 3)</li>
+        <li>Built mood analytics dashboard</li>
+        <li>Developed SOS risk detection system</li>
       </ul>
       <div class="tags">
-        <span class="tag">Java</span><span class="tag">Swing</span>
-        <span class="tag">AWT</span><span class="tag">C++</span>
-        <span class="tag">OOP</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">JWT</span>
+        <span class="tag">AI</span>
+        <span class="tag">MySQL</span>
       </div>
     </div>
 
     <div class="proj-card">
       <div class="proj-num">03</div>
-      <div class="proj-icon">📡</div>
-      <div class="proj-title">LeetCode Solution Series</div>
+      <div class="proj-icon">🎨</div>
+      <div class="proj-title">Omnitrix Portfolio</div>
       <p class="proj-desc">
-        An ongoing initiative — solving and documenting 200+ algorithmic problems
-        with explanations, targeting optimized Java solutions and community sharing.
+        Interactive portfolio with SPA-like architecture and advanced animations.
       </p>
       <ul class="proj-features">
-        <li>200+ problems solved &amp; documented</li>
-        <li>Focus on time &amp; space complexity</li>
-        <li>Topics: Arrays, Trees, Graphs, DP</li>
-        <li>Active public posting series</li>
-        <li>Consistent daily practice</li>
+        <li>Custom animations & particle system</li>
+        <li>Dynamic content rendering</li>
+        <li>3D UI interactions</li>
+        <li>Built fully in Vanilla JavaScript</li>
       </ul>
       <div class="tags">
-        <span class="tag">Java</span><span class="tag">DSA</span>
-        <span class="tag">LeetCode</span><span class="tag">Algorithms</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
       </div>
     </div>
-  </div>
 
-  <div class="sec-label">Development Experience</div>
-  <div class="hcard">
-    <div class="hcard-title">Web Application Stack</div>
-    <div class="tags">
-      <span class="tag java">JSP + Servlets</span>
-      <span class="tag java">JDBC</span>
-      <span class="tag java">Apache Tomcat</span>
-      <span class="tag">MySQL</span>
-      <span class="tag">HTML/CSS</span>
-    </div>
-    <div class="hcard-title" style="margin-top:18px;">Desktop Application Stack</div>
-    <div class="tags">
-      <span class="tag java">Java Swing</span>
-      <span class="tag java">AWT</span>
-      <span class="tag">C++ Graphics</span>
-    </div>
   </div>
   `;
-}
-
-/* ── COMPETITIVE PROGRAMMING ──────────────── */
+}/* ── COMPETITIVE PROGRAMMING ──────────────── */
 function cp() {
   return `
   <div class="cp-hero">
     <div>
-      <div class="cp-num">200<span style="font-size:.5em">+</span></div>
-      <span class="cp-num-label">Problems Solved on LeetCode</span>
-    </div>
-    <div style="flex:1; min-width:220px;">
-      <p class="bio-p" style="margin-bottom:20px;">
-        Consistent algorithmic problem solving on <strong>LeetCode</strong> with a focus on
-        clean, optimized Java solutions. Running an active posting series to document solutions
-        and share insights with the developer community.
-      </p>
-      <div class="g2">
-        <div class="scard">
-          <div class="scard-num">200+</div>
-          <div class="scard-label">Problems Solved</div>
-        </div>
-        <div class="scard">
-          <div class="scard-num">∞</div>
-          <div class="scard-label">Daily Practice</div>
-        </div>
-      </div>
+      <div class="cp-num">250+</div>
+      <span class="cp-num-label">LeetCode Problems Solved</span>
     </div>
   </div>
 
-  <div class="sec-label">Achievements & Activity</div>
-  <div class="gauto">
-    <div class="hcard">
-      <div class="hcard-title">🏆 LeetCode Milestone</div>
-      <p style="font-size:13px; color:rgba(0,255,65,0.55); line-height:1.8;">
-        Solved 200+ problems covering Easy, Medium, and Hard categories.
-        Focused on building deep understanding of each pattern and approach.
-      </p>
-    </div>
-    <div class="hcard">
-      <div class="hcard-title">📡 Active Posting Series</div>
-      <p style="font-size:13px; color:rgba(0,255,65,0.55); line-height:1.8;">
-        Consistently shares solutions and explanations online. Builds habits of
-        clear documentation, communication, and community engagement.
-      </p>
-    </div>
-    <div class="hcard">
-      <div class="hcard-title">🔥 Consistent Practice</div>
-      <p style="font-size:13px; color:rgba(0,255,65,0.55); line-height:1.8;">
-        Daily algorithmic problem solving habit. Focus on building speed,
-        accuracy, and depth across multiple algorithmic domains.
-      </p>
-    </div>
-  </div>
-
-  <div class="sec-label">Problem Topics Covered</div>
-  <div class="g2">
-    <div class="dsa-card">
-      <div class="dsa-title">Data Structure Problems</div>
-      <ul class="dsa-list">
-        <li>Arrays &amp; Two Pointers</li>
-        <li>Linked List manipulation</li>
-        <li>Stack &amp; Queue problems</li>
-        <li>Tree traversals &amp; BFS/DFS</li>
-        <li>Graph algorithms</li>
-        <li>Heap / Priority Queue</li>
-      </ul>
-    </div>
-    <div class="dsa-card">
-      <div class="dsa-title">Algorithm Problems</div>
-      <ul class="dsa-list">
-        <li>Dynamic Programming</li>
-        <li>Binary Search variants</li>
-        <li>Sorting &amp; Searching</li>
-        <li>Greedy algorithms</li>
-        <li>Backtracking</li>
-        <li>Divide &amp; Conquer</li>
-      </ul>
+  <div class="hcard">
+    <p class="bio-p">
+      Strong problem-solving skills with focus on <strong>Data Structures & Algorithms</strong>.
+    </p>
+    <div class="tags">
+      <span class="tag">Arrays</span>
+      <span class="tag">Trees</span>
+      <span class="tag">Graphs</span>
+      <span class="tag">Dynamic Programming</span>
     </div>
   </div>
   `;
 }
-
 /* ── ACADEMIC ─────────────────────────────── */
 function academic() {
   return `
@@ -1561,111 +1392,37 @@ function academic() {
 /* ── CONTACT ──────────────────────────────── */
 function contact() {
   return `
-  <div class="sec-label">Get In Touch</div>
-
-  <div class="contact-grid">
-
-    <div class="contact-left">
-
-      <a class="c-link" href="mailto:azharkhan230826@acropolis.in">
-        <div class="c-link-icon">✉️</div>
-        <div>
-          <span class="c-link-label">Email</span>
-          azharkhan230826@acropolis.in
-        </div>
-      </a>
-
-      <a class="c-link" href="tel:7067289757">
-        <div class="c-link-icon">📞</div>
-        <div>
-          <span class="c-link-label">Phone</span>
-          +91 7067289757
-        </div>
-      </a>
-
-      <div class="c-link">
-        <div class="c-link-icon">📍</div>
-        <div>
-          <span class="c-link-label">Location</span>
-          Indore, Madhya Pradesh, India
-        </div>
-      </div>
-
-      <div class="c-link">
-        <div class="c-link-icon">🏛️</div>
-        <div>
-          <span class="c-link-label">Institution</span>
-          Acropolis Institute of Technology & Research
-        </div>
-      </div>
-
-    </div>
-
-    <div class="contact-right">
-
-      <div class="sec-label">Career Goals</div>
-
-      <div class="goal-item">
-        <div class="goal-n">01</div>
-        <div>
-          <div class="goal-title">Java Backend Developer</div>
-          <div class="goal-desc">
-          Master Java backend development, advanced DSA, and system design to build production-grade scalable software.
-          </div>
-        </div>
-      </div>
-
-      <div class="goal-item">
-        <div class="goal-n">02</div>
-        <div>
-          <div class="goal-title">Software Engineer @ Product Company</div>
-          <div class="goal-desc">
-          Land a software engineering role at a product-based company and work on impactful systems at scale.
-          </div>
-        </div>
-      </div>
-
-      <div class="goal-item">
-        <div class="goal-n">03</div>
-        <div>
-          <div class="goal-title">Open Source Contributor</div>
-          <div class="goal-desc">
-          Contribute to Java open-source projects and continue sharing algorithmic knowledge with the developer community.
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="sec-label">Preferred Roles</div>
-
-  <div class="tags">
-    <span class="tag">Java Developer</span>
-    <span class="tag">Backend Developer</span>
-    <span class="tag">Software Engineer</span>
-    <span class="tag">Internship Opportunities</span>
-  </div>
-
-  <div class="sec-label">Strengths</div>
-
   <div class="hcard">
-    <div class="g2" style="margin-bottom:0;">
-      <ul class="ilist">
-        <li class="iitem">Strong problem-solving ability</li>
-        <li class="iitem">Deep interest in algorithms</li>
-        <li class="iitem">Fast learner</li>
-      </ul>
-      <ul class="ilist">
-        <li class="iitem">Consistent coding practice</li>
-        <li class="iitem">Strong Java fundamentals</li>
-        <li class="iitem">Algorithmic thinking</li>
-      </ul>
-    </div>
+
+    <a class="c-link" href="mailto:azharkhan.ak2303@gmail.com">
+      <div class="c-link-icon">📧</div>
+      <div>
+        <span class="c-link-label">Email</span>
+        azharkhan.ak2303@gmail.com
+      </div>
+    </a>
+
+    <a class="c-link" href="https://github.com/azharkhan924" target="_blank">
+      <div class="c-link-icon">💻</div>
+      <div>
+        <span class="c-link-label">GitHub</span>
+        github.com/azharkhan924
+      </div>
+    </a>
+
+    <a class="c-link" href="https://linkedin.com/in/azhar-khan" target="_blank">
+      <div class="c-link-icon">🔗</div>
+      <div>
+        <span class="c-link-label">LinkedIn</span>
+        linkedin.com/in/azhar-khan
+      </div>
+    </a>
+
   </div>
   `;
 }
 </script>
+<audio id="hover-sound" src="hover.mp3" preload="auto"></audio>
+<audio id="transform-sound" src="transform.mp3" preload="auto"></audio>
 </body>
 </html>
