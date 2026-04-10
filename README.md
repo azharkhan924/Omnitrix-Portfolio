@@ -8,14 +8,10 @@
 
 ![Portfolio Screenshot](./screenshot.png)
 
-> 📌 *Replace this image with your actual screenshot (recommended: full UI view of Omnitrix screen)*
-
 ---
 
 ## 🚀 Live Demo
-
-🔗 *Add your deployed link here*
-Example: https://azharkhan924.github.io/Omnitrix-Portfolio/
+https://azharkhan924.github.io/Omnitrix-Portfolio/
 
 ---
 
