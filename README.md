@@ -15,7 +15,7 @@
 ## 🚀 Live Demo
 
 🔗 *Add your deployed link here*
-Example: https://your-portfolio-link.com
+Example: https://azharkhan924.github.io/Omnitrix-Portfolio/
 
 ---
 
